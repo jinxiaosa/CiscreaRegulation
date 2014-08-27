@@ -22,7 +22,7 @@ python-dev
 $: sudo apt-get install [packages]
 
 or run:
-$ sudo apt-get install python 2.7 python-numpy python-scipy python-pygame python-pymodbus python-dev
+$ sudo apt-get install python2.7 python-numpy python-scipy python-pygame python-pymodbus python-dev
 
 To avoid "import cv2" problem,Install open-cv.
 Install tutorial:
