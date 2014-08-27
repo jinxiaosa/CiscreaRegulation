@@ -1,7 +1,7 @@
 ciscrea-regulation
 ======================
 
-This is the python code to control a bare CISCREA underwater vehicle. Inside /src/rov I built the robust and PID heading controller.
+This is the python code to control a bare CISCREA underwater vehicle (xubuntu). Inside /src/rov I built the robust and PID heading controller.
 -----------------------------------------------------------
 
 To excute this code with all hardware connected:
