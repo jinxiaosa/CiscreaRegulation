@@ -47,3 +47,8 @@ Manual for the joystick.
 Buttons:
 
 Axis:
+
+-----------------------------------------------------------
+
+To install a very old wireless driver for D830 
+http://www.bigfatostrich.com/2011/10/solved-ubuntu-11-10-wireless-issues/comment-page-1/
