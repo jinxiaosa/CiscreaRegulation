@@ -53,7 +53,7 @@ python-pygame
 python-pymodbus
 python-dev
 
-1. (I suggest) Install python 2.7 from official site package.
+1. (I suggest) Install python 2.7 from Macports.
 
 2. Install MacPorts.
 
@@ -77,7 +77,7 @@ For example, I have a macbook pro retina 2012 on mavericks 10.9, I remove wrong 
 
 $sudo port install py27-numpy py27-scipy
 
-$sudo easy_install numpy (I use this to make it working, I can not explain check: http://stackoverflow.com/questions/19605911/installing-python-packages-modules-on-mac)
+$sudo easy_install numpy (You only need this line if you encounter a import failure after above commands.check: http://stackoverflow.com/questions/19605911/installing-python-packages-modules-on-mac)
 
 5. Install pymodbus
 
@@ -91,11 +91,11 @@ $python setup.py install
 
 Install Opencv using official documents (linux manual works).
 
-Note that you need to point opencv to the correct python on Mac when you run CMAKE (There might be Apple Python, Macports Python, Brew python simultaneously) 
+Note that on Mac you need to point opencv to the correct python when you run CMAKE (There might be Apple Python, Macports Python, Brew python simultaneously) 
 
-For me I choose Macport Python, and I remove the three PATH info inside .profile.
+For me I choose Macport Python, and I remove the three PATH export commands inside ".profile".
 
-After installation.
+After opencv installation.
 
 $python
 >>import cv2
@@ -121,7 +121,7 @@ or
  
 Both methods crash my python when I "import  cv2"  inside Python terminal!!! 
 
-(Online: The problem is that you have 2 different Python versions, probably incompatible ones, installed on your machine - analysis of CMakeCache.txt proves that. Remove the one installed in "/opt" and everything should go well. On my OSX Lion machine cv2 works great.)
+(Online Answer: The problem is that you have 2 different Python versions, probably incompatible ones, installed on your machine - analysis of CMakeCache.txt proves that. Remove the one installed in "/opt" and everything should go well. On my OSX Lion machine cv2 works great.)
 
 
 Fail 3:
@@ -142,14 +142,17 @@ TOO MANY PYTHON PROBLEM(http://stackoverflow.com/questions/14117945/too-many-dif
 
 Not try:
 
-I did not test brew solution(Maybe you can try)
+I did not test the brew solution(Maybe you can try)
+
 http://www.daveperrett.com/articles/2010/12/14/face-detection-with-osx-and-python/
+
 -----------------------------------------------------------
 
-Note: Sometime the window do not stop. Run following code.
+Note: Sometime the video window do not stop. Run following code.
 
-1. Run: jobs
-2. Run: kill -9 %[jobs number]
+$jobs
+
+$ kill -9 %[jobs number]
 
 -----------------------------------------------------------
 
@@ -157,11 +160,44 @@ Manual for the joystick.
 
 Buttons:
 
+Btn1:
+
+Btn2:
+
+Btn3: Turn on Joystick controlled Yaw following program (Hinf only)
+
+Btn4:
+
+Btn5:
+
+Btn6:
+
+Btn7: Start and Stop record underwater camera
+
+Btn8:
+
+Btn9: Change Yaw Controller Target (114 and 275 degree)
+
+Btn10:
+
+Btn11: Turn on/off yaw controller
+
+Btn12: Switch Yaw Controller between PID and Hinf Robust controller
+
 Axis:
+
+x aix: Horizontal Motors -127~127(Surge)
+
+y aix: Horizontal Motors -127~127(Sway)
+
+z aix: Vertical Motors -127~127(Depth,Heave)
+
+hat swith up & down: Underwater Camera tilt up & down
 
 -----------------------------------------------------------
 
 To install a very old wireless driver for D830 
+
 http://www.bigfatostrich.com/2011/10/solved-ubuntu-11-10-wireless-issues/comment-page-1/
 
 This code base on the work of Irvin Probst and Rui YANG.
