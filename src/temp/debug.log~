@@ -1,0 +1,57 @@
+1. Solve Rs485 connection problem.
+
+Change device name.
+
+2. Try to solve the camera problem.
+
+Terminal Output:
+
+The above can be safely ignored if using TCP modbus
+RS485 connection to:  /dev/tty.usbserial-FTV7LGVK
+rock'n roll baby
+
+'NoneType' object has no attribute '__getitem__'
+No camera detected, UI will not start
+keepalive() unable to communicate with Ciscrea
+
+<1>Find
+
+if cam.is_connected():
+
+<2>Find
+
+from camcrea import CamCrea
+
+cam=CamCrea()
+
+
+<3> Go to camcrea.py
+
+def is_connected(self):
+        return self.__connected
+
+<4> check self.__connected
+
+try:
+            if os.name=="posix":
+                #YANG Rui add here a note to know we find OS in cam program
+                print 'We find OS in camcrea function'
+                cam_dev=pygame.camera.list_cameras()[0]
+                self.cam=pygame.camera.Camera(cam_dev, (640,480))
+                self.cam.start()
+                self.__pygame_cam=True
+            else:
+                self.cam = cv2.VideoCapture(0)
+                self.__pygame_cam=False
+                self.__last_query=time.time()
+            self.__connected=True
+        except Exception,e:
+            print e
+            pass
+
+
+<5> pygame.camera.list_cameras()[0] give nothing
+
+pygame camera list return a none
+
+we might come to cv2 methodsy

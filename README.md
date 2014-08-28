@@ -9,7 +9,8 @@ To excute this code with all hardware connected:
 1. Navigate to /src/rov
 2. Run python rov.py /dev/tty.usbserial-FTV7LGVK ../base/rov.calib 
 
-Note: Here the RS485 change from /dev/ttyUSB0 (ubuntu) to tty.usbserial-FTV7LGVK now.
+Note: Here the RS485 change from /dev/ttyUSB0 (ubuntu) to tty.usbserial-FTV7LGVK now. （or cu.usbserial-FTTJHSHE for the new ciscrea）
+
 
 -----------------------------------------------------------
 Supports(linux user):
@@ -103,8 +104,12 @@ $python
 
 No error appear.
 
+7. Install a universal Mac video driver for Grabby Video Adapter
+
+Install “VideoGlide” from http://www.echofx.com
+
 ---------------------------
-Fail process( Do not read)
+Fail opencv process( Do not read)
 
 Fail 1:
 

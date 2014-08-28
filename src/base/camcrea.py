@@ -10,8 +10,6 @@ from Queue import Full
 import os
 import signal
 
-#initialize camera
-
 class CamCrea():
     """Implemets a simple movie recorder + get_image from pygame.camera.
     Unfortunately the init() stuff from pygame.camera makes it impractical
@@ -25,16 +23,27 @@ class CamCrea():
         pygame.camera.init()
         self.__connected=False
         try:
-            if os.name=="posix":
+            if os.name=="posix"+"Broken Pygame Module lead us to opencv": # "posix"+"broken pygame"
+                # YANG RUI modify this part for mac compatiable
+                #cam_dev=pygame.camera.list_cameras()[0]
                 cam_dev=pygame.camera.list_cameras()[0]
+                # I found cam_dev give nothing
+                  
                 self.cam=pygame.camera.Camera(cam_dev, (640,480))
                 self.cam.start()
                 self.__pygame_cam=True
+
             else:
-                self.cam = cv2.VideoCapture(0)
+                print 'Camera program does not find OS posix'
+                print 'Broken Pygame Module lead us to opencv'
+               
+                #self.cam = cv2.VideoCapture(0)
+                self.cam = cv2.VideoCapture(1)
                 self.__pygame_cam=False
                 self.__last_query=time.time()
-            self.__connected=True
+
+            self.__connected = True
+
         except Exception,e:
             print e
             pass
@@ -127,7 +136,8 @@ class CamCrea():
                         shape=(640, 480, 3),
                         dtype=np.uint8,
                         buffer=img,
-                        offset=2, strides=(3, 1920, -1)
+                        #offset=2, strides=(3, 1920, -1) yr comment this code of irvin
+                        offset=2, strides=(3, 1920, 1)
                         )
             return pygame.surfarray.make_surface(img)
         

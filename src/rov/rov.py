@@ -64,7 +64,8 @@ pygame.time.set_timer(hat_tick, 150)
 #switch to 800*600 fullscreeen
 if cam.is_connected():
     pygame.display.set_caption('Ciscrea ROV')
-    screen = pygame.display.set_mode((800,600))#,pygame.FULLSCREEN | pygame.HWSURFACE)
+    screen = pygame.display.set_mode((800,600))
+    #screen = pygame.FULLSCREEN | pygame.HWSURFACE
     imbuf=[cam.get_image() for _ in range(video_buf_len)]
 else:
     print "No camera detected, UI will not start"
