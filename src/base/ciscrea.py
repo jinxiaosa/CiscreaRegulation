@@ -437,6 +437,10 @@ class AsynCrea(Ciscrea):
             modbus_timeout=0.03
         print "The above can be safely ignored if using TCP modbus"
 
+        # YANG RUI move the code to mac os 
+        # the rs485 might be on /dev/tty.usbserial-FTV7LGVK or  /dev/cu.usbserial-FTV7LGVK instead of /dev/ttyUSB0
+        # Just modify the input
+
         self.writeq=Queue(0)
         super(AsynCrea, self).__init__(remote, modbus_timeout)
         self.__queue_timeout=10*modbus_timeout

@@ -44,6 +44,7 @@ if not ciscrea.calib:
 video_buf_len=1
 
 #start SDL stuff
+
 pygame.init()
 pygame.joystick.init()
 pygame.joystick.Joystick(0).init()
