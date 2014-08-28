@@ -145,6 +145,7 @@ Not try:
 I did not test the brew solution(Maybe you can try)
 
 http://www.daveperrett.com/articles/2010/12/14/face-detection-with-osx-and-python/
+
 -----------------------------------------------------------
 
 Note: Sometime the video window do not stop. Run following code.
@@ -159,12 +160,24 @@ Manual for the joystick.
 
 Buttons:
 Btn1:
-Btn1:
-Btn1:
-Btn1:
+Btn2:
+Btn3: Turn on Joystick controlled Yaw following program (Hinf only)
+Btn4:
+Btn5:
+Btn6:
+Btn7: Start and Stop record underwater camera
+Btn8:
+Btn9: Change Yaw Controller Target (114 and 275 degree)
+Btn10:
+Btn11: Turn on/off yaw controller
+Btn12: Switch Yaw Controller between PID and Hinf Robust controller
 
 Axis:
 
+x aix: Horizontal Motors -127~127(Surge)
+y aix: Horizontal Motors -127~127(Sway)
+z aix: Vertical Motors -127~127(Depth,Heave)
+hat swith up & down: Underwater Camera tilt up & down
 -----------------------------------------------------------
 
 To install a very old wireless driver for D830 
