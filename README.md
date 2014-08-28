@@ -143,6 +143,7 @@ TOO MANY PYTHON PROBLEM(http://stackoverflow.com/questions/14117945/too-many-dif
 Not try:
 
 I did not test brew solution(Maybe you can try)
+
 http://www.daveperrett.com/articles/2010/12/14/face-detection-with-osx-and-python/
 -----------------------------------------------------------
 
