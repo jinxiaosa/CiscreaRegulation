@@ -7,9 +7,8 @@ This is the python code to control a bare CISCREA underwater vehicle (MacOS). In
 To excute this code with all hardware connected:
 
 1. Navigate to /src/rov
-2. Run python rov.py /dev/tty.usbserial-FTV7LGVK ../base/rov.calib 
+tty.usbserial-FTV7LGVK2. Run python rov.py /dev/ttyUSB0 ../base/rov.calib 
 
-Note: Here the RS485 change from /dev/ttyUSB0 (ubuntu) to tty.usbserial-FTV7LGVK now.
 
 -----------------------------------------------------------
 Supports(linux user):
