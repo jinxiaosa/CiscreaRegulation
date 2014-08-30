@@ -17,7 +17,7 @@ from time import time
 grad2rad = 3.141592/180.0
 
 # Check your COM port and baud rate
-ser = serial.Serial(port='COM9',baudrate=57600, timeout=1)
+ser = serial.Serial(port='/dev/ttyUSB0',baudrate=57600, timeout=1)
 
 # Main scene
 scene=display(title="9DOF Razor IMU test")
@@ -83,15 +83,16 @@ pitch=0
 yaw=0
 while 1:
     line = ser.readline()
-    line = line.replace("!ANG:","")   # Delete "!ANG:"
+    line = line.replace("#YPR=","")   # Delete "!ANG:"
     print line
     f.write(line)                     # Write to the output log file
     words = string.split(line,",")    # Fields split
     if len(words) > 2:
         try:
-            roll = float(words[0])*grad2rad
-            pitch = float(words[1])*grad2rad
-            yaw = float(words[2])*grad2rad
+	    roll = float(words[0])*grad2rad
+	    print roll
+	    pitch = float(words[1])*grad2rad
+	    yaw = float(words[2])*grad2rad
         except:
             print "Invalid line"
 
@@ -113,6 +114,7 @@ while 1:
         arrow_course.axis=(0.2*sin(yaw),0.2*cos(yaw),0)
         L1.text = str(float(words[0]))
         L2.text = str(float(words[1]))
-        L3.text = str(float(words[2]))        
+        L3.text = str(float(words[2]))
+       
 ser.close
 f.close
