@@ -27,22 +27,27 @@ class CamCrea():
                 # YANG RUI modify this part for mac compatiable
                 #cam_dev=pygame.camera.list_cameras()[0]
                 cam_dev=pygame.camera.list_cameras()[0]
-                # I found cam_dev give nothing
+                # I found cam_dev give nothing. Pygame do not work no mac
                   
                 self.cam=pygame.camera.Camera(cam_dev, (640,480))
                 self.cam.start()
                 self.__pygame_cam=True
 
             else:
-                print 'Camera program does not find OS posix'
-                print 'Broken Pygame Module lead us to opencv'
+                print 'Warning: Camera program does not find OS posix'
+                print 'Warning: Broken Pygame Module lead us to opencv'
                
                 #self.cam = cv2.VideoCapture(0)
                 self.cam = cv2.VideoCapture(1)
                 self.__pygame_cam=False
                 self.__last_query=time.time()
 
-            self.__connected = True
+
+            # YANG RUI ADD HERE:
+            #  Because the Grabby adapter is not support on mac os. We can not open camera using 
+            #  opencv, Here I turn off the video feature for the mac version.
+            print 'Warning: Camera is force to turn off '
+            self.__connected = False #True
 
         except Exception,e:
             print e

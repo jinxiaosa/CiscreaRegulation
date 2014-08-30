@@ -33,7 +33,7 @@ signal.signal(signal.SIGINT, close_all)
 if len(sys.argv)>2:
     ciscrea=AsynCrea(sys.argv[1])
 else:
-    print "Need an IP or serial port to connect to"
+    print "Need an IP or RS485 serial port to connect to"
     sys.exit(1)
 
 ciscrea.load_calibration(sys.argv[2])
@@ -48,6 +48,8 @@ video_buf_len=1
 pygame.init()
 pygame.joystick.init()
 pygame.joystick.Joystick(0).init()
+
+# YANG here close the camera Initialization
 cam=CamCrea()
 
 #need a timer in order not to u ciscrea with modbus requests
@@ -69,8 +71,10 @@ if cam.is_connected():
     imbuf=[cam.get_image() for _ in range(video_buf_len)]
 else:
     print "No camera detected, UI will not start"
-    
-    
+    # YANG RUI
+    print "Lauch window without video"
+    pygame.display.set_caption('Ciscrea ROV')
+    screen = pygame.display.set_mode((800,600))
 
 done=False
 
@@ -93,6 +97,7 @@ cam_tilt=0
 #read ciscrea status for the first UI redraw
 status=ciscrea.get_status()
 
+print '-------------------------------------------'
 
 #list to store joystick orders
 motors=[0,0,0,0,0]
@@ -114,9 +119,12 @@ while not done and not ciscrea.exit:
         imbuf[(img_idx+video_buf_len)%video_buf_len] = cam.get_image()
         img_idx=(img_idx+1)%video_buf_len
         screen.blit(imbuf[img_idx],(0,0))
-        draw_ui(screen, status, target_z, target_psi, cam,controller,joyrote)
-        pygame.display.flip()
-
+        #draw_ui(screen, status, target_z, target_psi, cam,controller,joyrote)
+        #pygame.display.flip()
+    #yang rui block the video but left window open
+    draw_ui(screen, status, target_z, target_psi, cam,controller,joyrote)
+    pygame.display.flip()
+ 
 
     event=pygame.event.poll()
     if event.type==pygame.JOYAXISMOTION:
@@ -194,6 +202,8 @@ while not done and not ciscrea.exit:
             ciscrea.light_on(light_intensity)
 
     elif event.type==ciscrea_update:
+        #print 'check if clock make ciscrea_update running'
+
         status=ciscrea.get_status()
         depth=status["depth"]
         psi=status["heading"]

@@ -11,7 +11,7 @@ To excute this code with all hardware connected:
 
 Note: Here the RS485 change from /dev/ttyUSB0 (ubuntu) to tty.usbserial-FTV7LGVK now. （or cu.usbserial-FTTJHSHE for the new ciscrea）
 
-
+Note2: The pygame only works on bash shell(open xquartz)
 -----------------------------------------------------------
 Supports(linux user):
 

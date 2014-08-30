@@ -22,7 +22,8 @@ class Ciscrea(object):
             self.__modbus_timeout=timeout
         else:
             if os.name!="posix" and timeout<0.03:
-                print "RS485 timeout too low, using 0.03 seconds"
+                print "RS485 timeout too low, using 0.03 seconds (Experience)"
+                #self.__modbus_timeout=0.03
                 self.__modbus_timeout=0.03
             else:
                 self.__modbus_timeout=timeout
@@ -30,6 +31,8 @@ class Ciscrea(object):
             print "RS485 connection to: ", remote
             self.client=ModbusSerialClient(method="rtu", port=remote, stopbits=1,bytesize=8,
                     parity="N",baudrate=38400, timeout=self.__modbus_timeout)
+
+            #Fabrice this place may be timeout (Clock differenc between Mac and Ubuntu)
 
             #print self.client.connect()
                 
@@ -90,6 +93,7 @@ class Ciscrea(object):
         with self.rwlock:
             try:
                 val=self.client.read_holding_registers(reg,nb,unit=16)
+                #print 'We have no problem with reading modbus'
             except Exception,e:
                 val=None
                 print e
@@ -150,8 +154,10 @@ class Ciscrea(object):
         fail=0
         while not self.exit:
             result = self.modbus_read(32,17)
+            #print 'Modbus read'
             if result is not None:
                 try:
+                    #print 'YANG RUI ask if modbus read anything?'
                     self.alarms_byte=result.getRegister(0)
                 except:
                     self.alarms_byte=0
@@ -163,8 +169,9 @@ class Ciscrea(object):
                 time.sleep(sleep_time)
             else:
                 fail+=1
-                if fail>10:
+                if fail>20:
                     print "keepalive() unable to communicate with Ciscrea"
+                    #yr unblock
                     self.exit=True
 
             
@@ -431,7 +438,9 @@ class AsynCrea(Ciscrea):
         """
         if os.name=="posix":
             print "POSIX compliant OS detected, using 0.01 second timeout on RS485 modbus"
-            modbus_timeout=0.01
+            #modbus_timeout=0.01
+            modbus_timeout=0.03
+            #Fabrice increase this timeout
         else:
             print "WARNING ! Windows detected, will try to use a long RS485 timeout, use at your own risks"
             modbus_timeout=0.03

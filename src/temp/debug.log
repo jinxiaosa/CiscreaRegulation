@@ -55,3 +55,14 @@ try:
 pygame camera list return a none
 
 we might come to cv2 methodsy
+
+opencv does not support the adaptor also.
+
+<6> Build a program without video.
+
+But we encounter :
+
+keepalive() unable to communicate with Ciscrea
+Command queue empty, master thread is too slow
+
+Pymodbus is not working in the correct mode.
