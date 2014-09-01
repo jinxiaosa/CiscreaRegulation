@@ -54,6 +54,7 @@ python-scipy
 python-pygame 
 python-pymodbus
 python-dev
+VideoGlider video adapter code 
 
 1. (I suggest) Install python 2.7 from Macports.
 
@@ -88,6 +89,10 @@ $svn checkout http://pymodbus.googlecode.com/svn/trunk/ pymodbus-read-only
 $cd pymodbus-read-only
 
 $python setup.py install
+
+6. Install VideoGlide capture software to monitor the camera
+
+http://www.echofx.com/videoglide.html
 
 -----------------------------------------------------------
 
