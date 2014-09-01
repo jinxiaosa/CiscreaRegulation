@@ -15,7 +15,7 @@ def decode_joystick(axis, value, max_thr=1.5):
             decode_joystick.psi_axis=3
 
 
-    if os.name!="posix": #to be cleaned later
+    if True or os.name!="posix": #to be cleaned later
         if value<0:
             sgn=-1
         else:

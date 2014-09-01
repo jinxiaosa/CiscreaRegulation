@@ -14,8 +14,8 @@ from Queue import Queue, Empty
 
                 
 class Ciscrea(object):
-    def __init__(self, remote, timeout=0.01):
-        if len(remote.split("."))==3:
+    def __init__(self, remote, timeout=0.03):
+        if len(remote.split("."))==4:
             #we probably have a TCP request
             print "TCP connection to: ", remote
             self.client=ModbusTcpClient(remote, 502)
@@ -28,7 +28,7 @@ class Ciscrea(object):
             else:
                 self.__modbus_timeout=timeout
                 
-            print "RS485 connection to: ", remote
+            print "RS485 connection to: ", remote,
             self.client=ModbusSerialClient(method="rtu", port=remote, stopbits=1,bytesize=8,
                     parity="N",baudrate=38400, timeout=self.__modbus_timeout)
 
@@ -111,7 +111,10 @@ class Ciscrea(object):
         """
         with self.rwlock:
             try:
+                #import time
+                #ts=time.time()
                 answer=self.client.write_register(reg, value, unit=16)
+                #print("single", time.time()-ts)
             except:
                 print "Error writing on modbus"
                 answer=None
@@ -136,7 +139,11 @@ class Ciscrea(object):
         """
         with self.rwlock:
             try:
+                #import time
+                #ts=time.time()
                 answer=self.client.write_registers(reg, values, unit=16)
+                #print("multiple ",time.time()-ts)
+
             except:
                 print "Error writing on modbus"
                 answer=None
@@ -439,8 +446,8 @@ class AsynCrea(Ciscrea):
         if os.name=="posix":
             print "POSIX compliant OS detected, using 0.01 second timeout on RS485 modbus"
             #modbus_timeout=0.01
-            modbus_timeout=0.03
-            #Fabrice increase this timeout
+            modbus_timeout=0.02
+            #Fabrice tell us to increase this timeout
         else:
             print "WARNING ! Windows detected, will try to use a long RS485 timeout, use at your own risks"
             modbus_timeout=0.03
@@ -463,6 +470,7 @@ class AsynCrea(Ciscrea):
         Argument 2: values to write
         Return value: None
         """
+
         self.writeq.put([[reg, value, False]], False)
 
 
@@ -474,7 +482,6 @@ class AsynCrea(Ciscrea):
         Argument 2: value to write
         Return value: None
         """
-
         self.writeq.put([[reg, value, True]], False)
 
     def __async_modbus_write(self):

@@ -115,18 +115,21 @@ controller="xxx"
 
 joyrote="xxx"
 while not done and not ciscrea.exit:
+    event=pygame.event.poll()
+
     if cam.is_connected() and cam.query_image():
         imbuf[(img_idx+video_buf_len)%video_buf_len] = cam.get_image()
         img_idx=(img_idx+1)%video_buf_len
         screen.blit(imbuf[img_idx],(0,0))
-        #draw_ui(screen, status, target_z, target_psi, cam,controller,joyrote)
-        #pygame.display.flip()
+        draw_ui(screen, status, target_z, target_psi, cam,controller,joyrote)
+        pygame.display.flip()
     #yang rui block the video but left window open
-    draw_ui(screen, status, target_z, target_psi, cam,controller,joyrote)
-    pygame.display.flip()
+    elif (not cam.is_connected() and event.type==ciscrea_update):
+        #update UI with sensors even if we have no working camera
+        draw_ui(screen, status, target_z, target_psi, cam,controller,joyrote)
+        pygame.display.flip()
  
 
-    event=pygame.event.poll()
     if event.type==pygame.JOYAXISMOTION:
         joy_cmd=decode_joystick(event.axis, event.value)
         
@@ -276,7 +279,8 @@ while not done and not ciscrea.exit:
                 motors_psi=psi_hinf_nonlin_kalmf(psi, target_psi )
     
                 motors=update_psi(motors,motors_psi)
+        
         update_ciscrea(motors, cam_tilt)
-    
+        
     #blocking call to force release the GIL
     time.sleep(0) #0 is NOT a bug.
